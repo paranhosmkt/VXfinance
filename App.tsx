@@ -750,7 +750,7 @@ const App: React.FC = () => {
                   
                   <div className="space-y-1.5 lg:space-y-2 relative z-10">
                     <DRELine label="(+) RECEITA BRUTA" value={dreTotals.income} bold highlight />
-                    <DRELine label="(-) IMPOSTOS (Est. 6%)" value={dreTotals.income * 0.06} isNegative />
+                    <DRELine label="(-) IMPOSTOS" value={dreTotals.income * 0.06} isNegative />
                     <div className="h-px bg-slate-100 my-4" />
                     <DRELine label="(=) RECEITA LÍQUIDA" value={dreTotals.income * 0.94} bold />
                     <DRELine label="(-) CUSTOS DE VENDA" value={dreTotals.cogs} isNegative />
@@ -780,7 +780,7 @@ const App: React.FC = () => {
             </div>
           )}
 
-          {/* Clients & Projects View adjustments */}
+          {/* Clients & Projects View */}
           {(view === 'clients' || view === 'projects') && (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 animate-in fade-in duration-500">
               <div className="lg:col-span-1 order-2 lg:order-1">
@@ -973,7 +973,6 @@ const App: React.FC = () => {
   );
 };
 
-// Helper Components
 const NavItem = ({ active, onClick, icon, label, collapsed }: { active: boolean, onClick: () => void, icon: React.ReactNode, label: string, collapsed: boolean }) => (
   <button 
     onClick={onClick} 
