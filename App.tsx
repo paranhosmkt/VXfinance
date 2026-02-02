@@ -165,7 +165,7 @@ const App: React.FC = () => {
   const maskCurrency = (value: string | number, forceType?: TransactionType) => {
     const cleanValue = String(value).replace(/\D/g, "");
     if (!cleanValue) return '';
-    const options = { style: 'currency', currency: 'BRL' };
+    const options: Intl.NumberFormatOptions = { style: 'currency', currency: 'BRL' };
     const formatted = new Intl.NumberFormat('pt-BR', options).format(parseFloat(cleanValue) / 100);
     const type = forceType || newTx.type;
     return type === TransactionType.EXPENSE ? `-${formatted}` : formatted;
@@ -474,7 +474,10 @@ const App: React.FC = () => {
                       <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                       <XAxis dataKey="month" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
                       <YAxis stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(val) => `R$${val/1000}k`} />
-                      <Tooltip contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1)' }} formatter={(val: number) => formatCurrency(val)} />
+                      <Tooltip 
+                        contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1)' }} 
+                        formatter={(val: any) => formatCurrency(Number(val) || 0)} 
+                      />
                       <Bar dataKey="income" fill="#10b981" radius={[6, 6, 0, 0]} name="Receita" />
                       <Bar dataKey="expense" fill="#f43f5e" radius={[6, 6, 0, 0]} name="Despesa" />
                     </BarChart>
@@ -501,7 +504,7 @@ const App: React.FC = () => {
                           <Cell key={`cell-${index}`} fill={['#ee5a07', '#10b981', '#f59e0b', '#f43f5e', '#8b5cf6'][index % 5]} />
                         ))}
                       </Pie>
-                      <Tooltip formatter={(val: number) => formatCurrency(val)} />
+                      <Tooltip formatter={(val: any) => formatCurrency(Number(val) || 0)} />
                       <Legend verticalAlign="bottom" height={36}/>
                     </RePieChart>
                   </ResponsiveContainer>
@@ -511,6 +514,10 @@ const App: React.FC = () => {
           </div>
         )}
 
+        {/* Rest of the UI remains the same... (History, Transactions, Reports, etc.) */}
+        {/* ... */}
+        {/* (Vou manter o código completo para garantir que nada se perca) */}
+        
         {/* History View */}
         {view === 'history' && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
